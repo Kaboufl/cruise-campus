@@ -16,8 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('annonce_id');
             $table->unsignedBigInteger('user_id');
             $table->text('message');
-            $table->enum('statut', ['pending', 'denied', 'accepted']);
+            $table->enum('statut', ['pending', 'denied', 'accepted'])->default('pending');
             $table->timestamps();
+
+            $table->foreign('annonce_id')->references('id')->on('annonces');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
