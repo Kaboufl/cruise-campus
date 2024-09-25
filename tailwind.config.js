@@ -4,7 +4,20 @@ export default {
     "./resources/views/**/*.blade.php",
   ],
   theme: {
-    extend: {},
+    extend: {
+        colors: {
+            'primary': {
+                DEFAULT: '#000000'
+            },
+            'secondary': {
+                DEFAULT: '#FFFFFF'
+            }
+        },
+        fontFamily: {
+            'poppins': ['poppins', 'system-ui', 'sans-serif'],
+            'montserrat': ['montserrat', 'system-ui', 'sans-serif']
+        }
+    },
   },
   plugins: [],
 }

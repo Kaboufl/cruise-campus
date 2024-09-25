@@ -30,6 +30,10 @@ Route::get('/framework', function () {
     return view('welcome');
 });
 
+Route::get('/composants', function() {
+    return view('composants');
+});
+
 Route::prefix('/app')
 ->middleware(['auth', 'verified'])
 ->group(function() {
