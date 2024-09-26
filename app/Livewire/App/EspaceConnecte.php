@@ -17,9 +17,24 @@ class EspaceConnecte extends Component
         $this->fetchAnnonces();
     }
 
-    public function fetchAnnonces()
+    #[On('searchFilter')]
+    public function fetchAnnonces($city = null)
     {
-        $this->annonces = Annonce::whereNot('user_id', Auth::id())->where('complet', false)->where('publie', true)->get();
+        if (!$city) {
+            $this->annonces = Annonce::with('user')
+                ->whereNot('user_id', Auth::id())
+                ->where('complet', false)
+                ->where('publie', true)
+                ->get();
+        } else {
+            $this->annonces = Annonce::with('user')
+            ->whereNot('user_id', Auth::id())
+            ->where('complet', false)
+            ->where('publie', true)
+            ->whereHas('user', function($query) use ($city) {
+                $query->where('ville', $city);
+            })->get();
+        }
     }
 
     #[On('changePanel')]

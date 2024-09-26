@@ -47,7 +47,7 @@ class loginController extends Controller
             'ville' => 'required|string',
             'telephone' => 'required|numeric',
             'campus' => 'required|numeric',
-            'password' => 'required|min:8',
+            'password' => 'required|min:8|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/',
             'password_confirmation' => 'required|same:password'
         ]);
 
@@ -61,7 +61,5 @@ class loginController extends Controller
             throw $th;
             return redirect()->back()->withErrors(['error' => 'Erreur lors de l\'enregistrement']);
         }
-
-
     }
 }
