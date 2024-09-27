@@ -17,13 +17,12 @@ COPY . .
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Run npm run build to build the assets from the nodeJS docker image
-COPY --from=node:latest /usr/local/bin/node /usr/local/bin/node
-COPY --from=node:latest /usr/local/lib/node_modules /usr/local/lib/node_modules
-COPY --from=node:latest /usr/local/include/node /usr/local/include/node
+# Install Node.js
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs
 
-RUN npm install
-RUN npm run build
+# Install npm dependencies and build assets
+RUN npm install && npm run build
 
 RUN composer install
 
