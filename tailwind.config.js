@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
         colors: {
-            'midnight-blue': {
+            'primary': {
                 DEFAULT: '#003366',
                 '50': '#eef7ff',
                 '100': '#dceeff',
