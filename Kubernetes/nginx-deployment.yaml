@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:alpine
+          securityContext:
+            runAsUser: 0
+            allowPrivilegeEscalation: true
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: nginx-config
+              readOnly: true
+              subPath: nginx.conf
+            - mountPath: /etc/nginx/ssl
+              name: ssl-certs
+              readOnly: true
+            - mountPath: /var/www/html
+              name: app-files
+            - mountPath: /var/log/nginx
+              name: nginx-logs
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+            items:
+              - key: nginx.conf
+                path: nginx.conf
+        - name: ssl-certs
+          persistentVolumeClaim:
+            claimName: nginx-ssl-certs
+            readOnly: true
+        - name: app-files
+          persistentVolumeClaim:
+            claimName: app-files-pvc
+        - name: nginx-logs
+          emptyDir: {}

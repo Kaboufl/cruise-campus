@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-configmap
+data:
+  www.conf: |
+    [global]
+    process_control_timeout = 10
+
+    [www]
+    user = www-data
+    group = www-data
+    listen = 0.0.0.0:9000
+    pm = dynamic
+    pm.max_children = 5
+    pm.start_servers = 2
+    pm.min_spare_servers = 1
+    pm.max_spare_servers = 3
+    request_terminate_timeout = 120
+    php_admin_value[memory_limit] = 256M
+  index.php: |
+    <?php phpinfo(); ?>
