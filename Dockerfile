@@ -1,5 +1,7 @@
 FROM php:8.3-fpm
 
+ENV APP_KEY=base64:AqvISKrye30LVrH7hry43tnm4ExFYj8ue32YunFEolE=
+
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
