@@ -15,7 +15,9 @@ class Demande extends Model
     ];
 
     /**
-     * These functions are related to the status enum field, the values are fixed, so we can use them as constants, refer to the migration file for details
+     * These functions are related to the status enum field, the values
+     * are fixed, so we can use them as constants, refer to the
+     * migration file for details
      */
     const PENDING = 'pending';
     const DENIED = 'denied';

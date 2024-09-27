@@ -17,6 +17,8 @@ class Campus extends Model
         'code_postal'
     ];
 
+    public $timestamps = false;
+
     public function users(): HasMany {
         return $this->hasMany(User::class, 'campus');
     }
